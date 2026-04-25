@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: saas-app # You can rename this if you want
+    runtime: php
+    buildCommand: composer install --no-dev --optimize-autoloader && npm install && npm run build
+    startCommand: php artisan serve --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: DB_CONNECTION
+        value: sqlite
+      - key: DATABASE_URL
+        value: sqlite/database/database.sqlite
+      - key: APP_KEY
+        sync: false # You will still set this in the Render dashboard for security
